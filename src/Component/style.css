@@ -1,0 +1,175 @@
+.backtest {
+  background-color: #094442;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.textbacktest {
+  color: white;
+}
+button:hover .textbacktest {
+  color: rebeccapurple;
+}
+
+.order_number {
+  padding: 8px 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.order_number a {
+  text-decoration: none;
+  color: #25a09b;
+  font-weight: bold;
+  width: 100%;
+  transition: color 0.3s;
+}
+
+.order_number:hover {
+  background-color: rebeccapurple !important;
+}
+
+.order_number:hover a {
+  color: white;
+}
+
+.signin_signup {
+  padding: 15px 25px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.signin {
+  background-color: #094442;
+  color: white !important;
+}
+.signin:hover {
+  background-color: white;
+  color: #094442 !important;
+  border: none;
+}
+.signup {
+  color: #094442 !important;
+}
+.signup:hover {
+  background-color: #094442 !important;
+  color: white !important;
+}
+
+.logo {
+  height: 60px; /* Adjust based on your logo size */
+}
+
+.custom-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom-menu.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.custom-menu.vertical {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  float: left;
+  align-items: start;
+  overflow: hidden;
+}
+
+.custom-menu.vertical.visible {
+  min-height: 400px;
+}
+
+.custom-menu li {
+  text-align: center;
+  margin: 10px 0;
+  position: relative;
+}
+
+.custom-menu li a {
+  display: block;
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.custom-menu li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background-color: #25a09b;
+  transition: width 0.3s ease;
+  width: 0;
+}
+
+.custom-menu li a:hover::after {
+  width: 100%; /* Expand to full width on hover */
+}
+
+@media (max-width: 999px) {
+  .custom-menu li a:hover::after {
+    width: 100%; /* No underline effect on hover */
+  }
+}
+
+.logo {
+  height: 60px; /* Adjust based on your logo size */
+}
+
+.header-row.expanded {
+  transition: height 0.3s ease-out;
+  height: auto;
+}
+
+.header_background_image {
+  flex: 1;
+  width: 100%;
+  height: 550px;
+  background-image: url("../../public/images/background.png"); /* Đường dẫn đến background image */
+  background-size: cover; /* Đảm bảo background image sẽ cover hết khu vực */
+  background-position: center;
+  z-index: 0;
+}
+
+.hexagon {
+  width: 100%;
+  height: 550px;
+  position: relative;
+  background-color: #25a09b; /* Màu nền của hình tứ giác */
+  clip-path: polygon(0% 0%, 60% 0%, 80% 100%, 0% 100%);
+  z-index: 1;
+}
+
+.user-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  margin-left: 10px;
+}
+
+.user-name {
+  color: white;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+}
