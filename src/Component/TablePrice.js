@@ -1,10 +1,11 @@
 import React from "react";
 import icon from "../asset/image/iconTree.svg";
+import SectionComponent from "./SectionComponent";
 
 const tablePrice = () => {
   return (
-    <div	>
-      <h1 class="mb-4 text-center	 text-xl font-extrabold text-gray-900 dark:text-white md:text-3xl lg:text-4xl"><span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Bảng giá dịch vụ</span></h1>
+    <div>
+      <SectionComponent text="Bảng giá dịch vụ" />
 
       <div class="grid md:grid-cols-3 grid-cols-1">
         {/* div 1 */}

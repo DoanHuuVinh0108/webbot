@@ -8,11 +8,7 @@ const Footer = () => {
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
             <a href="https://flowbite.com/" class="flex items-center">
-              <img
-                src={icon}
-                class="h-8 me-3"
-                alt="FlowBite Logo"
-              />
+              <img src={icon} class="h-8 me-3" alt="FlowBite Logo" />
               <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 TradingBot™
               </span>
@@ -25,18 +21,12 @@ const Footer = () => {
               </h2>
               <ul class="text-gray-500 dark:text-gray-400 font-medium">
                 <li class="mb-4">
-                  <a
-                    href="#"
-                    class="hover:underline "
-                  >
+                  <a href="#" class="hover:underline ">
                     Facebook
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="hover:underline"
-                  >
+                  <a href="#" class="hover:underline">
                     Telegram
                   </a>
                 </li>

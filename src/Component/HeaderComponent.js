@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MenuOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Row, Col, Space, Descriptions, Avatar, Dropdown } from "antd";
+import { Button, Row, Col, Avatar, Dropdown } from "antd";
 import "./style.css"; // Ensure to include your CSS file
 import { Link } from "react-router-dom";
 
@@ -47,13 +47,14 @@ const HeaderComponent = () => {
         <Link to="/about">Giới thiệu</Link>
       </li>
       <li>
-        <Link to="/price list">Bảng giá dịch vụ</Link>
+        <Link to="/backtest">Backtest</Link>
       </li>
+      <li>
+        <Link to="/price">Bảng giá dịch vụ</Link>
+      </li>
+
       <li>
         <Link to="/contact">Liên hệ</Link>
-      </li>
-      <li>
-        <Link to="/backtest">Backtest</Link>
       </li>
       <li>
         <Dropdown
@@ -109,53 +110,6 @@ const HeaderComponent = () => {
             </div>
           ) : null}
           {navigationItems}
-        </Col>
-      </Row>
-      <Row className="header_background_image">
-        <Col span={24} className="hexagon">
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "40%",
-              transform: "translate(-50%, -40%)",
-            }}
-          >
-            <Descriptions
-              title={
-                <span
-                  style={{
-                    color: "white",
-                    fontSize: "2.5rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  HIỆU SUẤT ĐẦU TƯ CAO
-                </span>
-              }
-            >
-              <Descriptions.Item span={3}>
-                <span style={{ color: "white", fontSize: "1.1rem" }}>
-                  Tự động báo điểm mua bán phái sinh
-                </span>
-              </Descriptions.Item>
-              <Descriptions.Item span={3} />
-              <Descriptions.Item>
-                <Space size={50} wrap="8">
-                  <Link to="/login">
-                    <Button className="signin_signup signin">
-                      <span>Đăng nhập</span>
-                    </Button>
-                  </Link>
-                  <Link to="/register">
-                    <Button className="signin_signup signup">
-                      <span>Đăng Ký</span>
-                    </Button>
-                  </Link>
-                </Space>
-              </Descriptions.Item>
-            </Descriptions>
-          </div>
         </Col>
       </Row>
     </>

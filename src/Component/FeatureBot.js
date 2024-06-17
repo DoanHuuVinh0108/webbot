@@ -13,6 +13,7 @@ import {
   Progress,
 } from "antd";
 import "./style.css";
+import SectionComponent from "./SectionComponent";
 
 const FeatureBot = () => {
   const formItemLayout = {
@@ -61,7 +62,11 @@ const FeatureBot = () => {
         },
       }}
     >
-      <Row gutter={[16, 16]} style={{width: '80%', margin: '0 auto', textAlign: 'center'}}>
+      <SectionComponent text="Tính năng bot" />
+      <Row
+        gutter={[16, 16]}
+        style={{ width: "80%", margin: "0 auto", textAlign: "center" }}
+      >
         <Col xs={24} lg={8}>
           <Card>
             <Descriptions title="THÔNG TIN BOT" column={1}>

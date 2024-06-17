@@ -1,15 +1,20 @@
 import React from "react";
 import tablePrice from "../../Component/TablePrice";
-import FeatureBot from "../../Component/FeatureBot";
+import Feature from "../../Component/Feature";
 import HeaderComponent from "../../Component/HeaderComponent";
+import Footer from "../../Component/Footer";
+import BannerComponent from "../../Component/BannerComponent";
+
 const TablePrice = tablePrice;
 
 const homePage = () => {
   return (
     <>
-    <HeaderComponent/>
-      <FeatureBot />
+      <HeaderComponent />
+      <BannerComponent/>
+      <Feature />
       <TablePrice />
+      <Footer />
     </>
   );
 };
