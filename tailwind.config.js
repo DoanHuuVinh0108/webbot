@@ -8,7 +8,11 @@ module.exports = {
      './pages/**/*.{html,js}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customGreen: 'rgb(127 178 65)',
+      },
+    },
   },
   plugins: [],
 }
