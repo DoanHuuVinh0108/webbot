@@ -16,8 +16,14 @@ const ContactComponent = () => {
     },
   };
   return (
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <Row gutter={16} style={{width: "80%"}}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Row gutter={16} style={{ width: "80%" }}>
         <Col span={24}>
           <MapComponent />
         </Col>
@@ -114,8 +120,8 @@ const ContactComponent = () => {
               </Col>
               <Col span={24}>
                 <Form.Item>
-                  <Button type="primary" htmlType="submit" className="backtest">
-                    Submit
+                  <Button type="primary" htmlType="submit" className="backtest signin_signup">
+                    Gửi yêu cầu
                   </Button>
                 </Form.Item>
               </Col>

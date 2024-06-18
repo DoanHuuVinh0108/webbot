@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Backtest from "./Page/Backtest/index.js";
 import ServicePrice from "./Page/ServicePrice/index.js";
 import Contact from "./Page/Contact/index.js";
+import About from "./Page/About/index.js";
 const HomePage = homePage;
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/backtest" element={<Backtest />} />
         <Route path="/price" element={<ServicePrice />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   );
