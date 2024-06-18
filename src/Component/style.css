@@ -176,8 +176,22 @@ button:hover .textbacktest {
 
 .icon_feature {
   font-size: 25px;
-  background-color: #25a09b;
+  background-color: #76ceca;
   padding: 10px;
   border-radius: 50%;
   margin-bottom: 30px;
+}
+
+.button_signup {
+  margin-top: 20px;
+  padding: 15px 28px;
+  font-size: 1.1rem;
+  background-color: #76ceca;
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  border-radius: 10px;
+}
+
+.button_signup:hover {
+  color: white;
+  background-color: #094442;
 }
