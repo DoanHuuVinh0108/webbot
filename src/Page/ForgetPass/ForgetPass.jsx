@@ -1,30 +1,42 @@
 import { Button, ConfigProvider, Form, Input, Spin, message } from 'antd'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { LockOutlined, PhoneOutlined } from '@ant-design/icons'
+import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import authService from '../../service/authService'
-import { useAuth } from '../../App'
-import authActions from '../../service/authAction'
 
-const Login = () => {
-  const [form] = Form.useForm()
+const ForgetPass = () => {
   const [loading, setLoading] = useState(false)
+  const [form] = Form.useForm()
   const navigate = useNavigate()
-  const { dispatch } = useAuth()
 
-  const handleSubmit = () => {
+  const onFinish = (values) => {
     setLoading(true)
+    const { email, token } = values
     authService
-      .login(form.getFieldsValue())
+      .confirmCode(form.getFieldsValue({ email, token: token }))
       .then((res) => {
-        dispatch(authActions.LOGIN)
         console.log(res)
-        message.success('Đăng nhập thành công')
-        navigate('/')
+        message.success('Xác thực thành công! Đặt lại mật khẩu mới')
+        navigate('/newPass', { state: { email, token: token } })
       })
       .catch((err) => {
         console.log(err)
-        message.error('Tài khoản hoặc mật khẩu không chính xác')
+        message.error('Lỗi xác thực.')
+      })
+      .finally(() => setLoading(false))
+  }
+
+  const sendVerificationCode = (email) => {
+    setLoading(true)
+    authService
+      .sendPassword(form.getFieldsValue(email))
+      .then((res) => {
+        console.log(res)
+        message.success('Please check your email for the verification code.')
+      })
+      .catch((err) => {
+        console.log(err)
+        message.error('Failed to send verification code.')
       })
       .finally(() => setLoading(false))
   }
@@ -38,35 +50,33 @@ const Login = () => {
               <img src="/images/logo.png" alt="logo" className="w-48 text-center" />
             </Link>
           </div>
-          <Form form={form} onFinish={handleSubmit}>
-            <Form.Item name="username">
+          <Form form={form} onFinish={onFinish}>
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: 'Please enter your email!' }]}
+            >
               <Input
-                prefix={<PhoneOutlined className="text-gray-300 mx-1" />}
-                placeholder="Số điện thoại"
+                prefix={<MailOutlined className="text-gray-300 mx-1" />}
+                placeholder="Email"
                 size="large"
                 className="text-gray-600"
               />
             </Form.Item>
             <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Vui lòng nhập mật khẩu',
-                },
-              ]}
+              name="token"
+              rules={[{ required: true, message: 'Please enter the verification code!' }]}
             >
-              <Input.Password
+              <Input
                 size="large"
-                placeholder="Mật khẩu"
+                placeholder="Verification Code"
                 prefix={<LockOutlined className="text-gray-300 mx-1" />}
+                addonAfter={
+                  <Button type="primary" onClick={sendVerificationCode} disabled={loading}>
+                    {loading ? <Spin /> : 'Gửi'}
+                  </Button>
+                }
               />
             </Form.Item>
-            <div className="flex items-center justify-end">
-              <Link to="/forgetPass" className="text-sm text-green-700 mb-6">
-                Quên mật khẩu?
-              </Link>
-            </div>
             <ConfigProvider
               theme={{
                 components: {
@@ -83,24 +93,16 @@ const Login = () => {
                 htmlType="submit"
                 size="large"
                 className="w-full px-4  text-white bg-green-700 rounded-3xl hover:bg-green-600 "
+                disabled={loading}
               >
-                {loading ? <Spin style={{ color: 'red' }} /> : 'Đăng nhập'}
+                {loading ? <Spin style={{ color: 'red' }} /> : 'Xác nhận'}
               </Button>
             </ConfigProvider>
           </Form>
-          <div className="mt-6 text-center">
-            <p className="mt-6 text-sm text-gray-700">
-              Chưa có tài khoản?
-              <Link to="/register" className="text-green-700">
-                {' '}
-                Đăng ký
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default Login
+export default ForgetPass

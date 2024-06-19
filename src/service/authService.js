@@ -21,10 +21,19 @@ const logout = () => Cookies.remove('user_data')
 
 const register = async (data) => await axios.post(API_URL + '/register', data)
 
+const sendPassword = async (email) => await axios.post(API_URL + '/send-code', email)
+
+const confirmCode = async (data) => await axios.post(API_URL + '/confirm-code', data)
+
+const resetPassword = async (data) => await axios.post(API_URL + '/reset-password', data)
+
 const authService = {
   login,
   register,
   logout,
   getCurrentUser,
+  sendPassword,
+  confirmCode,
+  resetPassword,
 }
 export default authService
