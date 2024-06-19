@@ -1,29 +1,29 @@
-import React from "react";
-import { Col, Descriptions, Row, Button, Form, Input } from "antd";
-import MapComponent from "./MapComponent";
-import SectionComponent from "./SectionComponent";
+import React from 'react'
+import { Col, Descriptions, Row, Button, Form, Input } from 'antd'
+import MapComponent from './MapComponent'
+import SectionComponent from './SectionComponent'
 const ContactComponent = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const onFinish = (values) => {
-    console.log(values);
-    form.resetFields();
-  };
+    console.log(values)
+    form.resetFields()
+  }
 
   const validateMessages = {
-    required: "${label} không được để trống!",
+    required: '${label} không được để trống!',
     types: {
-      email: "${label} không đúng định dạng!",
+      email: '${label} không đúng định dạng!',
     },
-  };
+  }
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <Row gutter={16} style={{ width: "80%" }}>
+      <Row gutter={16} style={{ width: '80%' }}>
         <Col span={24}>
           <MapComponent />
         </Col>
@@ -35,13 +35,13 @@ const ContactComponent = () => {
             title={
               <h1
                 style={{
-                  fontSize: "1.8rem",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
+                  fontSize: '1.8rem',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
-                Thông tin để liên hệ{" "}
+                Thông tin để liên hệ{' '}
               </h1>
             }
             layout="horizontal"
@@ -49,16 +49,15 @@ const ContactComponent = () => {
           >
             <Descriptions.Item>
               <span>
-                Quý khách hàng cần tư vấn thêm về sản phẩm, hoặc thắc mắc có thể
-                liên hệ với chúng tôi theo thông tin dưới đây:
+                Quý khách hàng cần tư vấn thêm về sản phẩm, hoặc thắc mắc có thể liên hệ với chúng
+                tôi theo thông tin dưới đây:
               </span>
             </Descriptions.Item>
             <Descriptions.Item>
-              <hr style={{ width: "100%", height: 1 }} />
+              <hr style={{ width: '100%', height: 1 }} />
             </Descriptions.Item>
             <Descriptions.Item label="Trụ sở chính">
-              CUSC - Cantho University Software Center 1 Đ. Lý Tự Trọng, An Phú,
-              Ninh Kiều, Cần Thơ
+              CUSC - Cantho University Software Center 1 Đ. Lý Tự Trọng, An Phú, Ninh Kiều, Cần Thơ
             </Descriptions.Item>
             <Descriptions.Item label="Hotline">XXXX</Descriptions.Item>
             <Descriptions.Item label="Email">XXX@gmail.com</Descriptions.Item>
@@ -69,7 +68,7 @@ const ContactComponent = () => {
             onFinish={onFinish}
             form={form}
             style={{
-              width: "100%",
+              width: '100%',
             }}
             layout="vertical"
             validateMessages={validateMessages}
@@ -95,7 +94,7 @@ const ContactComponent = () => {
                   label="Email "
                   rules={[
                     {
-                      type: "email",
+                      type: 'email',
                       required: true,
                     },
                   ]}
@@ -130,7 +129,7 @@ const ContactComponent = () => {
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}
 
-export default ContactComponent;
+export default ContactComponent

@@ -1,34 +1,45 @@
 import { Button, ConfigProvider, Form, Input, Spin, message } from 'antd'
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { LockOutlined, PhoneOutlined } from '@ant-design/icons'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { LockOutlined } from '@ant-design/icons'
 import authService from '../../service/authService'
-import { useAuth } from '../../App'
-import authActions from '../../service/authAction'
 
-const Login = () => {
-  const [form] = Form.useForm()
+const NewPassword = () => {
   const [loading, setLoading] = useState(false)
+  const [form] = Form.useForm()
   const navigate = useNavigate()
-  const { dispatch } = useAuth()
+  const location = useLocation()
 
-  const handleSubmit = () => {
+  const { email, token } = location.state || {}
+
+  const onFinish = (values) => {
+    if (!email || !token) {
+      message.error('Invalid reset link.')
+      return
+    }
     setLoading(true)
+    const { newPassword, confirmPassword } = values
+    if (newPassword !== confirmPassword) {
+      message.error('Passwords do not match!')
+      setLoading(false)
+      return
+    }
+
+    const data = { email: email, token: token, newPassword: form.getFieldValue('newPassword') }
+    console.log(data)
     authService
-      .login(form.getFieldsValue())
+      .resetPassword(data)
       .then((res) => {
-        dispatch(authActions.LOGIN)
         console.log(res)
-        message.success('Đăng nhập thành công')
-        navigate('/')
+        message.success('Password thay đổi thành công! Đăng nhập với password mới')
+        navigate('/login')
       })
       .catch((err) => {
         console.log(err)
-        message.error('Tài khoản hoặc mật khẩu không chính xác')
+        message.error('Đổi mật khẩu thất bại.')
       })
       .finally(() => setLoading(false))
   }
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-50">
       <div className="lg:w-1/3 md:w-1/2 w-full bg-white shadow-lg rounded-lg overflow-hidden">
@@ -38,35 +49,38 @@ const Login = () => {
               <img src="/images/logo.png" alt="logo" className="w-48 text-center" />
             </Link>
           </div>
-          <Form form={form} onFinish={handleSubmit}>
-            <Form.Item name="username">
-              <Input
-                prefix={<PhoneOutlined className="text-gray-300 mx-1" />}
-                placeholder="Số điện thoại"
-                size="large"
-                className="text-gray-600"
-              />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Vui lòng nhập mật khẩu',
-                },
-              ]}
-            >
+          <Form form={form} onFinish={onFinish}>
+            <Form.Item name="newPassword" rules={[{ required: true, message: 'Nhập mật khẩu!' }]}>
               <Input.Password
                 size="large"
-                placeholder="Mật khẩu"
+                placeholder="Mật khẩu mới"
                 prefix={<LockOutlined className="text-gray-300 mx-1" />}
               />
             </Form.Item>
-            <div className="flex items-center justify-end">
-              <Link to="/forgetPass" className="text-sm text-green-700 mb-6">
-                Quên mật khẩu?
-              </Link>
-            </div>
+            <Form.Item
+              name="confirmPassword"
+              dependencies={['newPassword']}
+              rules={[
+                {
+                  required: true,
+                  message: 'Xác nhận mật khẩu!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('newPassword') === value) {
+                      return Promise.resolve()
+                    }
+                    return Promise.reject(new Error('Mật khẩu không khớp!'))
+                  },
+                }),
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined className="text-gray-300 mx-1" />}
+                placeholder="Xác nhận mật khẩu"
+                size="large"
+              />
+            </Form.Item>
             <ConfigProvider
               theme={{
                 components: {
@@ -83,24 +97,16 @@ const Login = () => {
                 htmlType="submit"
                 size="large"
                 className="w-full px-4  text-white bg-green-700 rounded-3xl hover:bg-green-600 "
+                disabled={loading}
               >
-                {loading ? <Spin style={{ color: 'red' }} /> : 'Đăng nhập'}
+                {loading ? <Spin style={{ color: 'red' }} /> : 'Xác nhận'}
               </Button>
             </ConfigProvider>
           </Form>
-          <div className="mt-6 text-center">
-            <p className="mt-6 text-sm text-gray-700">
-              Chưa có tài khoản?
-              <Link to="/register" className="text-green-700">
-                {' '}
-                Đăng ký
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default Login
+export default NewPassword

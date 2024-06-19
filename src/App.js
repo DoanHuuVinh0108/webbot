@@ -11,6 +11,9 @@ import Backtest from './Page/Backtest/index.js'
 import ServicePrice from './Page/ServicePrice/index.js'
 import Contact from './Page/Contact/index.js'
 import About from './Page/About/index.js'
+import ForgetPass from './Page/ForgetPass'
+import NewPassword from './Page/NewPassword'
+
 const HomePage = homePage
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -26,6 +29,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgetPass" element={<ForgetPass />} />
+          <Route path="/newPass" element={<NewPassword />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
