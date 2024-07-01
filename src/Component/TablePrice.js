@@ -1,6 +1,6 @@
-import React from "react";
-import icon from "../asset/image/iconTree.svg";
-import SectionComponent from "./SectionComponent";
+import React from 'react'
+import icon from '../asset/image/iconTree.svg'
+import SectionComponent from './SectionComponent'
 
 const tablePrice = () => {
   return (
@@ -20,8 +20,7 @@ const tablePrice = () => {
             Gói 1 tháng
           </p>
           <p class="blueberry font-semibold text-gray-600 text-xs">
-            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo,
-            Facebook
+            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo, Facebook
           </p>
           <div class="ordernow flex flex-row justify-between items-center w-full">
             <p class="ordernow-text text-[#abd373] font-semibold group-hover:text-gray-800">
@@ -44,8 +43,7 @@ const tablePrice = () => {
             Gói 3 tháng
           </p>
           <p class="blueberry font-semibold text-gray-600 text-xs">
-            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo,
-            Facebook
+            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo, Facebook
           </p>
           <div class="ordernow flex flex-row justify-between items-center w-full">
             <p class="ordernow-text text-[#abd373] font-semibold group-hover:text-gray-800">
@@ -68,8 +66,7 @@ const tablePrice = () => {
             Gói 6 tháng
           </p>
           <p class="blueberry font-semibold text-gray-600 text-xs">
-            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo,
-            Facebook
+            Tư vấn viên hỗ trợ 24/7 thông qua điện thoại, Email, Telegram, Zalo, Facebook
           </p>
           <div class="ordernow flex flex-row justify-between items-center w-full">
             <p class="ordernow-text text-[#abd373] font-semibold group-hover:text-gray-800">
@@ -82,7 +79,7 @@ const tablePrice = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default tablePrice;
+export default tablePrice

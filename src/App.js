@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useEffect, useReducer } from 'react'
 import './App.css'
 import homePage from './Page/Home/index.js'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './Page/Login'
 import Register from './Page/Register'
-import Admin from './Page/Admin'
 import { initialState, reducer } from './service/authReducer'
 
 import Backtest from './Page/Backtest/index.js'
@@ -13,10 +12,24 @@ import Contact from './Page/Contact/index.js'
 import About from './Page/About/index.js'
 import ForgetPass from './Page/ForgetPass'
 import NewPassword from './Page/NewPassword'
+import authService from './service/authService.js'
 
 const HomePage = homePage
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
+
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      const user = authService.getCurrentUser()
+      const data = { refresh_token: user.refresh_token }
+      authService.refreshToken(data).then((res) => authService.setUserToken(res.data?.access_token))
+      setInterval(() => {
+        authService
+          .refreshToken(data)
+          .then((res) => authService.setUserToken(res.data?.access_token))
+      }, 300000)
+    }
+  }, [state.isAuthenticated])
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
@@ -31,7 +44,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgetPass" element={<ForgetPass />} />
           <Route path="/newPass" element={<NewPassword />} />
-          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </AuthContext.Provider>
