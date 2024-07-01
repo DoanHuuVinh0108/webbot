@@ -1,9 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const API_URL = 'https://localhost:7043/api/auth'
-const API_URL = "http://localhost:5131/api/auth";
-
+//const API_URL = "http://localhost:5131/api/auth";
+const API_URL = "https://minhnhat27.id.vn/api/auth";
 const login = async (data) =>
   await axios.post(API_URL + "/login", data).then((res) => {
     const exp = 7 * 24 * 60 * 60 * 1000;
