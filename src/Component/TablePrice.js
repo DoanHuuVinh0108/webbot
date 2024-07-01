@@ -4,6 +4,7 @@ import icon from "../asset/image/iconTree.svg";
 import SectionComponent from "./SectionComponent";
 import authService from "../service/authService";
 import userService from "../service/userService";
+
 const TablePrice = () => {
   const userInfo = authService.getCurrentUser() || {};
   const [courses, setCourses] = useState([]);
@@ -16,7 +17,6 @@ const TablePrice = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -64,7 +64,6 @@ const TablePrice = () => {
   return (
     <div>
       <SectionComponent text="Bảng giá dịch vụ" />
-
       <div className="grid md:grid-cols-3 grid-cols-1">
         {courses.map((course, index) => (
           <div
@@ -93,55 +92,54 @@ const TablePrice = () => {
             </div>
           </div>
         ))}
-      </div>
 
-      <Modal
-        title="ĐĂNG KÝ SỬ DỤNG BOT"
-        open={modalVisible}
-        onCancel={handleCancel}
-        footer={[
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button key="back" onClick={handleCancel}>
-              Đóng
-            </Button>
-            <Button key="active" onClick={handleActive}>
-              Kích hoạt
-            </Button>
-          </div>,
-        ]}
-      >
-        <div style={{ textAlign: "center" }}>
-          <p style={{ padding: 5 }}>
-            Quý khách vui lòng thanh toán vào TK để nhận Mã kích hoạt
-          </p>
-          <p style={{ padding: 5 }}>
-            Ngân hàng:{" "}
-            <span style={{ color: "#25a09b", fontWeight: "bold" }}>
-              {MY_BANK.BANK_ID}
-            </span>
-          </p>
-          <p style={{ padding: 5 }}>
-            Số TK:{" "}
-            <span style={{ color: "#25a09b", fontWeight: "bold" }}>
-              {" "}
-              {MY_BANK.ACCOUNT_NO}
-            </span>
-          </p>
-          <img
-            className="course_qr_img"
-            src={qrData.qrUrl}
-            alt="QR Code"
-            style={{ width: "100%", height: "auto", marginBottom: "20px" }}
-          />
-          <Input
-            placeholder="Nhập mã kích hoạt"
-            value={codeActive}
-            onChange={(e) => setCodeActive(e.target.value)}
-          />
-        </div>
-      </Modal>
+        <Modal
+          title="ĐĂNG KÝ SỬ DỤNG BOT"
+          open={modalVisible}
+          onCancel={handleCancel}
+          footer={[
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button key="back" onClick={handleCancel}>
+                Đóng
+              </Button>
+              <Button key="active" onClick={handleActive}>
+                Kích hoạt
+              </Button>
+            </div>,
+          ]}
+        >
+          <div style={{ textAlign: "center" }}>
+            <p style={{ padding: 5 }}>
+              Quý khách vui lòng thanh toán vào TK để nhận Mã kích hoạt
+            </p>
+            <p style={{ padding: 5 }}>
+              Ngân hàng:{" "}
+              <span style={{ color: "#25a09b", fontWeight: "bold" }}>
+                {MY_BANK.BANK_ID}
+              </span>
+            </p>
+            <p style={{ padding: 5 }}>
+              Số TK:{" "}
+              <span style={{ color: "#25a09b", fontWeight: "bold" }}>
+                {" "}
+                {MY_BANK.ACCOUNT_NO}
+              </span>
+            </p>
+            <img
+              className="course_qr_img"
+              src={qrData.qrUrl}
+              alt="QR Code"
+              style={{ width: "100%", height: "auto", marginBottom: "20px" }}
+            />
+            <Input
+              placeholder="Nhập mã kích hoạt"
+              value={codeActive}
+              onChange={(e) => setCodeActive(e.target.value)}
+            />
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 };
-
 export default TablePrice;

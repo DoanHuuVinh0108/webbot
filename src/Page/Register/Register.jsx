@@ -1,16 +1,29 @@
 import { LockOutlined, UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons'
-import { Button, ConfigProvider, Form, Input, Spin } from 'antd'
+import { Button, ConfigProvider, Form, Input, Spin, message } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import authService from '../../service/authService'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Register() {
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState(false)
+  const [loadingRegister, setLoadingRegister] = useState(false)
+  const [loadingSendcode, setLoadingSendcode] = useState(false)
+  const [timer, setTimer] = useState(0)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    let interval
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((preTimer) => preTimer - 1)
+      }, 1000)
+    }
+
+    return () => clearInterval(interval)
+  }, [timer])
+
   const handleSumit = () => {
-    setLoading(true)
+    setLoadingRegister(true)
     authService
       .register(form.getFieldsValue())
       .then((res) => {
@@ -18,20 +31,33 @@ export default function Register() {
         navigate('/login')
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false))
+      .finally(() => setLoadingRegister(false))
+  }
+
+  const sendVerificationCode = (email) => {
+    if (timer > 0) return
+    setLoadingSendcode(true)
+    authService
+      .sendRegisterCode(form.getFieldsValue(email))
+      .then((res) => {
+        console.log(res)
+        message.success('Vui lòng kiểm tra email')
+        setTimer(60)
+      })
+      .catch((err) => {
+        console.log(err)
+        message.error('Email không đúng.')
+      })
+      .finally(() => setLoadingSendcode(false))
   }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-50">
       <div className="lg:w-1/3 md:w-1/2 w-full bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="p-12">
+        <div className="p-4 px-10">
           <div className="flex justify-center items-center">
             <Link to="/">
-              <img
-                src="/images/logo.png"
-                alt="logo"
-                className="w-48"
-              />
+              <img src="/images/logo.png" alt="logo" className="w-48" />
             </Link>
           </div>
           <Form form={form} onFinish={handleSumit}>
@@ -125,6 +151,29 @@ export default function Register() {
                 size="large"
               />
             </Form.Item>
+            <Form.Item
+              name="token"
+              rules={[{ required: true, message: 'Please enter the verification code!' }]}
+            >
+              <Input
+                // loading={loadingSendcode}
+                size="large"
+                placeholder="Verification Code"
+                prefix={<LockOutlined className="text-gray-300 mx-1" />}
+                addonAfter={
+                  <Button
+                    type="primary"
+                    onClick={sendVerificationCode}
+                    disabled={timer > 0}
+                  >
+                    {loadingSendcode ? <Spin /> : 'Gửi'}
+                  </Button>
+                }
+                // enterButton="Gửi"
+                // onSearch={sendVerificationCode}
+                // disabled={timer > 0}
+              />
+            </Form.Item>
             <ConfigProvider
               theme={{
                 components: {
@@ -142,7 +191,7 @@ export default function Register() {
                 size="large"
                 className="w-full px-4 mt-4 text-white bg-green-700 rounded-3xl hover:bg-green-600 "
               >
-                {loading ? <Spin /> : 'Đăng ký'}
+                {loadingRegister ? <Spin /> : 'Đăng ký'}
               </Button>
             </ConfigProvider>
           </Form>
